@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                git url: 'github.com/JekaterinaLoseva/booksService.git'
+                git url: 'https://github.com/JekaterinaLoseva/booksService.git'
                 bat'./mvnw clean compile'
             }
         }
