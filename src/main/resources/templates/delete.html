@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage users</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div th:insert="header :: header"></div>
+<div class="container-fluid text-center">
+    <div><h1>Action:</h1></div>
+
+    <div class="block text-center col-sm-6">
+        <h3>Delete Book</h3>
+        <div th:if="${book.id == null}">
+            <div class="alert alert-danger" role="alert" th:text="'Book with Id[' + ${id} + '] not found'">
+                Student not found
+            </div>
+            <a href="books" class="btn btn-outline-secondary">Go Back</a>
+        </div>
+
+        <form th:action="@{delete}" method="post" th:object="${book}" th:if="${book.id != null}">
+
+            <input type="hidden" id="id" name="id" th:value="*{id}"/>
+            <input type="hidden" th:name="${id}" th:value="${id}">
+            <label class="col-sm-4 col-form-label">Title: </label>
+            <input type="text" th:name="title" th:value="*{title}" class="form-control" required>
+            <label class="col-sm-4 col-form-label">Author: </label>
+            <input type="text" th:name="author" th:value="*{author}" class="form-control" required>
+            <label class="col-sm-4 col-form-label">Category: </label>
+            <input type="text" th:name="category" th:value="*{category}" class="form-control" required>
+            <label class="col-sm-4 col-form-label">Year: </label>
+            <input type="text" th:name="year" th:value="*{year}" class="form-control" required>
+            <label class="col-sm-4 col-form-label">isAvailable: </label>
+            <input type="text" th:name="isAvailable" th:value="*{isAvailable}" class="form-control" required>
+            <input type="submit" class="btn btn-danger m-4" value="Delete"/>
+            <a href="books" class="btn btn-outline-secondary m-4">Cancel</a>
+        </form>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

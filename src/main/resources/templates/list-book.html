@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage users</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div th:insert="header :: header"></div>
+<div class="container-fluid text-center">
+    <div><h1>List of books</h1></div>
+
+    <div class="container-sm">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Link</th>
+                <th>Year</th>
+                <th>Is available</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${books.title}"></td>
+                <td th:text="${books.author}"></td>
+                <td th:text="${books.category}"></td>
+                <td th:text="${books.link}"></td>
+                <td th:text="${books.year}"></td>
+                <td th:text="${books.isAvailable}"></td>
+            </tr>
+            </th:block>
+            </tbody>
+        </table>
+
+        <a href="/add-book" class="btn btn-primary">Add new Book</a>
+
+    </div>
+</div>
+
+</body>
+</html>
+
