@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(SpringExtension.class)
-public class BookServiceTest {
+class BookServiceTest {
 
     static final Long ID = 1L;
     public static final String KEYWORD = "some";
@@ -34,7 +34,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testShouldReturnAllBook() {
+    void testShouldReturnAllBook() {
         List<Book> books = new ArrayList<>();
         books.add(new Book());
         given(bookRepository.findAll()).willReturn(books);
@@ -44,7 +44,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testShouldFindByWord() {
+    void testShouldFindByWord() {
         List<Book> books = new ArrayList<>();
         books.add(new Book());
         given(bookRepository.search(KEYWORD)).willReturn(books);
@@ -54,7 +54,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testShouldUpdateBook() {
+    void testShouldUpdateBook() {
         final Optional<Book> expected = Optional.empty();
         given(bookRepository.findById(1L)).willReturn(expected);
         final Optional<Book> actual = bookService.editBook(1L);
@@ -63,7 +63,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testShouldFindBookById() {
+    void testShouldFindBookById() {
         final Book book = new Book(1L,"Clean Code", "Robert C. Martin", "link",
                 "java", "2002", true);
         final Optional<Book> optionalBook = Optional.ofNullable(book);
@@ -77,7 +77,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testShouldNotFindBookById() {
+    void testShouldNotFindBookById() {
         final Optional<Book> optionalBook = Optional.empty();
         when(bookRepository.findById(anyLong())).thenReturn(optionalBook);
 
@@ -89,7 +89,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testShouldSaveBook() {
+    void testShouldSaveBook() {
         final Book expectedBook = new Book();
         given(bookRepository.save(expectedBook)).willAnswer(invocation -> {
             final Book toSave = invocation.getArgument(0);
@@ -105,7 +105,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testShouldDeleteBook(){
+    void testShouldDeleteBook(){
         willDoNothing().given(bookRepository).deleteById(1L);
         bookService.delete(1L);
         then(bookRepository).should().deleteById(1L);
