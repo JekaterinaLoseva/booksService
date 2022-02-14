@@ -25,7 +25,7 @@ class ApplicationTest {
 	MockMvc mockMvc;
 
 	@Test
-	public void contextLoads() throws Exception {
+	void contextLoads() throws Exception {
 
 		MvcResult result = mockMvc.perform(
 		MockMvcRequestBuilders.get("/books/"))

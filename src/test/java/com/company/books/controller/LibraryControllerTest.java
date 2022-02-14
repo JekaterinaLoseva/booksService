@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
-public class LibraryControllerTest {
+class LibraryControllerTest {
 
     public static final Long ID = 1L;
     @Mock
@@ -53,7 +53,7 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void testListOfBooks() throws Exception {
+    void testListOfBooks() throws Exception {
         Book book = new Book();
         List<Book> allBooks = Arrays.asList(book);
 
@@ -67,7 +67,7 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void testFindBookById() throws Exception {
+    void testFindBookById() throws Exception {
         Book book = new Book();
         book.setId(ID);
         when(bookService.findBookById(ID)).thenReturn(book);
@@ -80,7 +80,7 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void testAddBook() throws Exception {
+    void testAddBook() throws Exception {
         Book book = new Book();
         book.setId(ID);
         book.setTitle("title");
@@ -98,7 +98,7 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void testSaveBook() throws Exception {
+    void testSaveBook() throws Exception {
         Book book = new Book();
         when(bookService.save(book)).thenReturn(book);
 
@@ -110,7 +110,7 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void testEditBook() throws Exception {
+    void testEditBook() throws Exception {
         Book book = new Book();
         when(bookService.findBookById(ID)).thenReturn(book);
 
@@ -122,7 +122,7 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void testDeleteBook() throws Exception {
+    void testDeleteBook() throws Exception {
         given(bookService.editBook(ID)).willReturn(Optional.empty());
 
         mockMvc.perform(get("/delete/")
@@ -134,7 +134,7 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void testDeleteSaveBook() throws Exception {
+    void testDeleteSaveBook() throws Exception {
         willDoNothing().given(bookService).delete(ID);
 
         mockMvc.perform(post("/delete/")

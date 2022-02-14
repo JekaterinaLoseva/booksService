@@ -14,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class BookRepositoryItTest {
+class BookRepositoryItTest {
 
     @Autowired
     private BookRepository bookRepository;
 
     @Test
-    public void testCrud() {
+    void testCrud() {
         Book book1 = new Book(1L,"Clean Code", "Robert C. Martin", "link", "java", "2002", true);
         Book book2 = new Book(2L, "Code Complete", "Steve McConnell",
                 "link", "java", "2005", true);
