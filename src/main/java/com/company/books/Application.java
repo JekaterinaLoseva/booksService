@@ -29,7 +29,7 @@ public class Application {
             final Book book2 = new Book(2L, "Code Complete", "Steve McConnell",
                     "https://www.oreilly.com/library/view/code-complete-2nd/0735619670/", category, "2005", true);
             final Book book3 = new Book(3L, "Refactoring", "Martin Fowler",
-                    "https://www.oreilly.com/library/view/refactoring-improving-the/9780134757681/", category, "2007", true);
+                    "https://www.oreilly.com/library/view/refactoring-improving-the/9780134757681/", category, "2018", true);
 
             bookRepository.save(book1);
             bookRepository.save(book2);
