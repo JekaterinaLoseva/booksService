@@ -14,19 +14,19 @@ public class BookService {
     private final BookRepository bookRepository;
 
     @Autowired
-    public BookService(final BookRepository repository) {
-        this.bookRepository = repository;
+    public BookService(final BookRepository pRepository) {
+        this.bookRepository = pRepository;
     }
 
     public List<Book> findAllBooks() {
         return bookRepository.findAll();
     }
 
-    public Optional<Book> findBookById(Long id) {
+    public Optional<Book> findBookById(final Long id) {
         return bookRepository.findById(id);
     }
 
-    public List<Book> searchBooks(String keyword) {
+    public List<Book> searchBooks(final String keyword) {
         return bookRepository.search(keyword);
     }
 

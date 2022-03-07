@@ -25,7 +25,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.openMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -45,7 +44,7 @@ class LibraryControllerTest {
     private BookService bookService;
 
     @InjectMocks
-    LibraryController controller;
+    private LibraryController controller;
 
     @Autowired
     private MockMvc mockMvc;
@@ -55,7 +54,7 @@ class LibraryControllerTest {
         controller = new LibraryController(bookService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
-        book = new Book(ID,"Clean Code", "Robert C. Martin", "link",
+        book = new Book(ID, "Clean Code", "Robert C. Martin", "link",
                 "java", "2002", true);
 
         assertThat(this.bookService).isNotNull();
@@ -70,7 +69,7 @@ class LibraryControllerTest {
 
     @Test
     void testListOfBooks() throws Exception {
-        Book book2 = new Book(2L,"Code Complete", "Steve McConnell", "link",
+        Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "link",
                 "java", "2005", true);
         final List<Book> allBooks = Arrays.asList(book, book2);
 
@@ -146,7 +145,7 @@ class LibraryControllerTest {
 
     @Test
     void testSaveBook() throws Exception {
-        Book book2 = new Book(2L,"Code Complete", "Steve McConnell", "link",
+        Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "link",
                 "java", "2005", true);
         when(bookService.save(book2)).thenReturn(book2);
 
