@@ -6,4 +6,6 @@
 
 <suppressions>
     <suppress checks="javadoc" files="\.java"/>
+    <suppress checks="DesignForExtension" files="\.java"/>
+    <suppress checks="sizes" files="\.java"/>
 </suppressions>

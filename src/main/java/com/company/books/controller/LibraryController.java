@@ -20,11 +20,11 @@ import java.util.Optional;
 public class LibraryController {
 
     @Autowired
-    BookService bookService;
+    private BookService bookService;
 
     @Autowired
-    public LibraryController(final BookService bookService) {
-        this.bookService = bookService;
+    public LibraryController(final BookService pBookService) {
+        this.bookService = pBookService;
     }
 
     @GetMapping("/")
@@ -33,7 +33,7 @@ public class LibraryController {
     }
 
     @GetMapping("/books")
-    public String findAllBooks(ModelMap model) {
+    public String findAllBooks(final ModelMap model) {
         final List<Book> books = bookService.findAllBooks();
 
         model.addAttribute("books", books);
@@ -41,7 +41,7 @@ public class LibraryController {
     }
 
     @GetMapping("/searchBook")
-    public String searchBook(@Param("keyword") String keyword, ModelMap model) {
+    public String searchBook(@Param("keyword") final String keyword, final ModelMap model) {
         final List<Book> books = bookService.searchBooks(keyword);
 
         model.addAttribute("books", books);
@@ -50,7 +50,7 @@ public class LibraryController {
     }
 
     @GetMapping("/book/{id}")
-    public String findBookById(@PathVariable("id") Long id, ModelMap model) {
+    public String findBookById(@PathVariable("id")final Long id, final ModelMap model) {
         final Optional<Book> book = bookService.findBookById(id);
 
         model.addAttribute("book", book);

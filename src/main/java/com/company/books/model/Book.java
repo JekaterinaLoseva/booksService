@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator="seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq")
     private Long id;
     @Column(name = "title", nullable = false, length = 35)
     private String title;
@@ -26,103 +26,108 @@ public class Book {
     private String category;
     @Column(name = "year", nullable = false, length = 4)
     private String year;
-    @Column(name= "available", nullable = false, length = 12)
+    @Column(name = "available", nullable = false, length = 12)
     private boolean isAvailable;
 
     public Book() {
     }
 
-    public Book(Long id, String title, String author, String link, String category, String year, boolean isAvailable) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.link = link;
-        this.category = category;
-        this.year = year;
-        this.isAvailable = isAvailable;
+    public Book(final Long pId, final String pTitle, final String pAuthor, final String pLink,
+                final String pCategory, final String pYear, final boolean pIsAvailable) {
+        this.id = pId;
+        this.title = pTitle;
+        this.author = pAuthor;
+        this.link = pLink;
+        this.category = pCategory;
+        this.year = pYear;
+        this.isAvailable = pIsAvailable;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(final Long pId) {
+        this.id = pId;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(final String pTitle) {
+        this.title = pTitle;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthor(final String pAuthor) {
+        this.author = pAuthor;
     }
 
     public String getLink() {
         return link;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setLink(final String pLink) {
+        this.link = pLink;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(final String pCategory) {
+        this.category = pCategory;
     }
 
     public String getYear() {
         return year;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setYear(final String pYear) {
+        this.year = pYear;
     }
 
     public boolean getIsAvailable() {
         return isAvailable;
     }
 
-    public void setIsAvailable(boolean available) {
-        isAvailable = available;
+    public void setIsAvailable(final boolean pIsAvailable) {
+        isAvailable = pIsAvailable;
     }
 
     @Override
     public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", link='" + link + '\'' +
-                ", category='" + category + '\'' +
-                ", year='" + year + '\'' +
-                ", isAvailable=" + isAvailable +
-                '}';
+        return "Book{"
+                + "id=" + id
+                + ", title='" + title + '\''
+                + ", author='" + author + '\''
+                + ", link='" + link + '\''
+                + ", category='" + category + '\''
+                + ", year='" + year + '\''
+                + ", isAvailable=" + isAvailable
+                + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Book book = (Book) o;
-        return isAvailable == book.isAvailable &&
-                Objects.equals(id, book.id) &&
-                Objects.equals(title, book.title) &&
-                Objects.equals(author, book.author) &&
-                Objects.equals(link, book.link) &&
-                Objects.equals(category, book.category) &&
-                Objects.equals(year, book.year);
+        return isAvailable == book.isAvailable
+                && Objects.equals(id, book.id)
+                && Objects.equals(title, book.title)
+                && Objects.equals(author, book.author)
+                && Objects.equals(link, book.link)
+                && Objects.equals(category, book.category)
+                && Objects.equals(year, book.year);
     }
 
     @Override
