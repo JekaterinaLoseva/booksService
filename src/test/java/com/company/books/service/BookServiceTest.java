@@ -2,112 +2,103 @@ package com.company.books.service;
 
 import com.company.books.model.Book;
 import com.company.books.repository.BookRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
+
+@ExtendWith(MockitoExtension.class)
 class BookServiceTest {
 
     static final Long ID = 1L;
-    public static final String KEYWORD = "some";
+    private Book book;
 
-    @MockBean
+    @Mock
     private BookRepository bookRepository;
 
+    @InjectMocks
     private BookService bookService;
 
     @BeforeEach
     public void setUp() {
-        bookService = new BookService(bookRepository);
+        book = new Book(1L,"Clean Code", "Robert C. Martin", "link",
+                "java", "2002", true);
+
     }
 
     @Test
-    void testShouldReturnAllBook() {
-        List<Book> books = new ArrayList<>();
-        books.add(new Book());
-        given(bookRepository.findAll()).willReturn(books);
-        List<Book> expected = bookService.findAllBooks();
-        Assertions.assertEquals(expected, books);
-        verify(bookRepository, times(1)).findAll();
+    void testShouldReturnAllBooks() {
+        Book book2 = new Book(2L,"Code Complete","Steve McConnell",
+                "link", "education", "2005", true);
+        given(bookRepository.findAll()).willReturn(Arrays.asList(book, book2));
+        List<Book> books = bookService.findAllBooks();
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isEqualTo(2);
+    }
+
+    @Test
+    void testShouldReturnEmptyBooksList() {
+        given(bookRepository.findAll()).willReturn(Collections.emptyList());
+        List<Book> books = bookService.findAllBooks();
+        assertThat(books).isEmpty();
+        assertThat(books.size()).isZero();
     }
 
     @Test
     void testShouldFindByWord() {
-        List<Book> books = new ArrayList<>();
-        books.add(new Book());
-        given(bookRepository.search(KEYWORD)).willReturn(books);
-        List<Book> expected = bookService.searchBooks(KEYWORD);
-        Assertions.assertEquals(expected, books);
-        verify(bookRepository).search(KEYWORD);
+        when(bookRepository.search("java")).thenReturn(Collections.singletonList(book));
+        List<Book> searchedBook = bookService.searchBooks(book.getCategory());
+        verify(bookRepository).search("java");
+        assertThat(searchedBook.size()).isEqualTo(1);
     }
 
     @Test
     void testShouldUpdateBook() {
-        final Optional<Book> expected = Optional.empty();
-        given(bookRepository.findById(1L)).willReturn(expected);
-        final Optional<Book> actual = bookService.editBook(1L);
-        assertThat(actual).isEqualTo(expected);
-        then(bookRepository).should().findById(1L);
+        given(bookRepository.findById(1L)).willReturn(Optional.of(book));
+        book.setYear("2013");
+        Optional<Book> updatedBook = bookService.editBook(1L);
+        assertThat(updatedBook.get().getYear()).isEqualTo("2013");
     }
 
     @Test
     void testShouldFindBookById() {
-        final Book book = new Book(1L,"Clean Code", "Robert C. Martin", "link",
-                "java", "2002", true);
-        final Optional<Book> optionalBook = Optional.ofNullable(book);
-        when(bookRepository.findById(anyLong())).thenReturn(optionalBook);
-
-        final Book actualBook = bookService.findBookById(ID);
-
-        Assertions.assertNotNull(actualBook, "Null book returned");
-        verify(bookRepository, times(1)).findById(anyLong());
-        verify(bookRepository, never()).findAll();
-    }
-
-    @Test
-    void testShouldNotFindBookById() {
-        final Optional<Book> optionalBook = Optional.empty();
-        when(bookRepository.findById(anyLong())).thenReturn(optionalBook);
-
-        final Book actualBook = bookService.findBookById(ID);
-
-        Assertions.assertNull(actualBook, "Null book returned");
-        verify(bookRepository, times(1)).findById(anyLong());
-        verify(bookRepository, never()).findAll();
+        when(bookRepository.findById(anyLong())).thenReturn(Optional.of(book));
+        Book actualBook = bookService.findBookById(book.getId()).get();
+        assertThat(actualBook).isNotNull();
     }
 
     @Test
     void testShouldSaveBook() {
-        final Book expectedBook = new Book();
-        given(bookRepository.save(expectedBook)).willAnswer(invocation -> {
-            final Book toSave = invocation.getArgument(0);
-            toSave.setId(ID);
-            return toSave;
-        });
+        given(bookRepository.save(book)).willReturn(book);
+        Book savedBook = bookService.save(book);
 
-        final Book actual = bookService.save(expectedBook);
-
-        assertThat(actual).isEqualTo(expectedBook);
-        then(bookRepository).should().save(expectedBook);
-        then(bookRepository).shouldHaveNoMoreInteractions();
+        assertThat(savedBook).isNotNull();
+        then(bookRepository).should().save(savedBook);
     }
 
     @Test
     void testShouldDeleteBook(){
-        willDoNothing().given(bookRepository).deleteById(1L);
-        bookService.delete(1L);
-        then(bookRepository).should().deleteById(1L);
+        willDoNothing().given(bookRepository).deleteById(ID);
+        bookService.delete(ID);
+
+        verify(bookRepository, times(1)).deleteById(ID);
     }
 }

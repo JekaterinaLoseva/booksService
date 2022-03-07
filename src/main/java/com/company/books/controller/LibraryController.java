@@ -7,7 +7,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +51,7 @@ public class LibraryController {
 
     @GetMapping("/book/{id}")
     public String findBookById(@PathVariable("id") Long id, ModelMap model) {
-        final Book book = bookService.findBookById(id);
+        final Optional<Book> book = bookService.findBookById(id);
 
         model.addAttribute("book", book);
         return "list-book";
@@ -79,7 +83,7 @@ public class LibraryController {
     }
 
     @GetMapping("/delete")
-    public String delete(final ModelMap model, @RequestParam final Long id) {
+    public String delete(final ModelMap model, @RequestParam final Long id)  {
 
         final Optional<Book> bookRecord = bookService.editBook(id);
 

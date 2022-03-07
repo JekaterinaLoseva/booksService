@@ -1,25 +1,32 @@
 package com.company.books.model;
 
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "books")
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="seq")
     private Long id;
-    @Column(name = "title", nullable= false, length = 35)
+    @Column(name = "title", nullable = false, length = 35)
     private String title;
-    @Column(name = "author", nullable= false, length = 35)
+    @Column(name = "author", nullable = false, length = 35)
     private String author;
-    @Column(name = "link", nullable= false, length = 150)
+    @Column(name = "link", nullable = false, length = 150)
     private String link;
-    @Column(name = "category", nullable= false, length = 35)
+    @Column(name = "category", nullable = false, length = 35)
     private String category;
-    @Column(name = "year", nullable= false, length = 4)
+    @Column(name = "year", nullable = false, length = 4)
     private String year;
-    @Column(nullable= false, length = 5)
+    @Column(name= "available", nullable = false, length = 12)
     private boolean isAvailable;
 
     public Book() {
@@ -89,5 +96,37 @@ public class Book {
 
     public void setIsAvailable(boolean available) {
         isAvailable = available;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", link='" + link + '\'' +
+                ", category='" + category + '\'' +
+                ", year='" + year + '\'' +
+                ", isAvailable=" + isAvailable +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return isAvailable == book.isAvailable &&
+                Objects.equals(id, book.id) &&
+                Objects.equals(title, book.title) &&
+                Objects.equals(author, book.author) &&
+                Objects.equals(link, book.link) &&
+                Objects.equals(category, book.category) &&
+                Objects.equals(year, book.year);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, author, link, category, year, isAvailable);
     }
 }
