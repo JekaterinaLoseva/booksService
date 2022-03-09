@@ -7,7 +7,7 @@
 </head>
 <body>
 <nav th:fragment="header" class="navbar navbar-expand-lg navbar-dark" style="background-color: #3A5A81; color: white;">
-    <a class="navbar-brand">Books Hosting</a>
+    <a class="navbar-brand">Books Catalogue</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -23,9 +23,9 @@
             </li>
         </ul>
 
-        <form th:action="@{/searchBook}" class="form-inline my-2 my-lg-0">
+        <form th:action="@{/searchBook}" class="form-inline my-2 my-lg-1">
             <input class="form-control mr-sm-2" name= "keyword" id = "keyword" type="text" placeholder="Search" aria-label="Search" th:value="${keyword}">
-            <input class="btn btn-outline-success active my-2 my-sm-0" type="submit" value="Search" />
+            <input class="btn btn-outline-success active my-2 my-sm-1" type="submit" value="Search" />
         </form>
 
     </div>
