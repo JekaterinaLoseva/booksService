@@ -27,9 +27,9 @@ public class LibraryController {
         this.bookService = pBookService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/mainPage")
     public String index() {
-        return "index";
+        return "main";
     }
 
     @GetMapping("/books")
@@ -40,14 +40,22 @@ public class LibraryController {
         return "books-list";
     }
 
+    @GetMapping("/userBooks")
+    public String findAllUserBooks(final ModelMap model) {
+        final List<Book> books = bookService.findAllBooks();
+
+        model.addAttribute("books", books);
+        return "user-books";
+    }
+
     @GetMapping("/searchBook")
     public String searchBook(@Param("keyword") final String keyword, final ModelMap model) {
         final List<Book> books = bookService.searchBooks(keyword);
 
         model.addAttribute("books", books);
         model.addAttribute("keyword", keyword);
-        return "books-list";
-    }
+        return "searched-books";
+}
 
     @GetMapping("/book/{id}")
     public String findBookById(@PathVariable("id")final Long id, final ModelMap model) {
