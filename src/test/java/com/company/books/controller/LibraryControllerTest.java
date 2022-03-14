@@ -61,10 +61,10 @@ class LibraryControllerTest {
     }
 
     @Test
-    void testIndex() throws Exception {
-        mockMvc.perform(get("/"))
+    void testMainPage() throws Exception {
+        mockMvc.perform(get("/mainPage"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"));
+                .andExpect(view().name("main"));
     }
 
     @Test
@@ -78,6 +78,23 @@ class LibraryControllerTest {
         mockMvc.perform(get("/books"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("books-list"))
+                .andExpect(model().attribute("books", hasItems(book, book2)))
+                .andExpect(model().attribute("books", Matchers.hasSize(2)))
+                .andDo(print());
+        then(bookService).should().findAllBooks();
+    }
+
+    @Test
+    void testListOfUserBooks() throws Exception {
+        Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "link",
+                "java", "2005", true);
+        final List<Book> allBooks = Arrays.asList(book, book2);
+
+        when(bookService.findAllBooks()).thenReturn(allBooks);
+
+        mockMvc.perform(get("/userBooks"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("user-books"))
                 .andExpect(model().attribute("books", hasItems(book, book2)))
                 .andExpect(model().attribute("books", Matchers.hasSize(2)))
                 .andDo(print());
@@ -115,7 +132,7 @@ class LibraryControllerTest {
         mockMvc.perform(get("/searchBook")
                 .param("keyword", ("java")))
                 .andExpect(status().isOk())
-                .andExpect(view().name("books-list"))
+                .andExpect(view().name("searched-books"))
                 .andExpect(model().attribute("books", Matchers.hasSize(1)))
                 .andExpect(model().attributeExists("keyword"))
                 .andDo(print());

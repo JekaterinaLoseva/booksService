@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Manage users</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <div th:insert="header :: header"></div>
@@ -31,6 +32,7 @@
                 <label class="col-sm-4 col-form-label">isAvailable: </label>
                 <input type="text" th:name="isAvailable" th:value="*{isAvailable}" class="form-control" required>
                 <button type="submit" class="btn btn-primary m-4">Add Book</button>
+                <a href="books" class="btn btn-outline-secondary m-4">Cancel</a>
             </form>
             </div>
         </div>

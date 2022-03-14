@@ -1,4 +1,38 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+}
+
 div {
     width: 100%;
     margin: 0 auto;
-    }
+    display: block;
+}
+
+.bg {
+    background-image: url("/images/background.jpg");
+    position: relative;
+    text-align: center;
+    color: black;
+    height: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text {
+    color: #3A5A81;
+    font-family: Snell, roundHand, cursive;
+    font-style: italic, bold;
+    font-size: 60px;
+    padding-left: 50px;
+}
