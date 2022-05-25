@@ -39,14 +39,14 @@ class BookServiceTest {
 
     @BeforeEach
     public void setUp() {
-        book = new Book(1L, "Clean Code", "Robert C. Martin", "link",
+        book = new Book(1L, "Clean Code", "Robert C. Martin", "description", "link",
                 "java", "2002", true);
 
     }
 
     @Test
     void testShouldReturnAllBooks() {
-        Book book2 = new Book(2L, "Code Complete", "Steve McConnell",
+        Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "description",
                 "link", "education", "2005", true);
         given(bookRepository.findAll()).willReturn(Arrays.asList(book, book2));
         List<Book> books = bookService.findAllBooks();

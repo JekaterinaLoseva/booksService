@@ -54,7 +54,7 @@ class LibraryControllerTest {
         controller = new LibraryController(bookService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
-        book = new Book(ID, "Clean Code", "Robert C. Martin", "link",
+        book = new Book(ID, "Clean Code", "Robert C. Martin", "description", "link",
                 "java", "2002", true);
 
         assertThat(this.bookService).isNotNull();
@@ -69,7 +69,7 @@ class LibraryControllerTest {
 
     @Test
     void testListOfBooks() throws Exception {
-        Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "link",
+        Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "description", "link",
                 "java", "2005", true);
         final List<Book> allBooks = Arrays.asList(book, book2);
 
@@ -86,7 +86,7 @@ class LibraryControllerTest {
 
     @Test
     void testListOfUserBooks() throws Exception {
-        Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "link",
+        Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "description", "link",
                 "java", "2005", true);
         final List<Book> allBooks = Arrays.asList(book, book2);
 
@@ -145,14 +145,15 @@ class LibraryControllerTest {
         book2.setId(2L);
         book2.setTitle("title");
         book2.setAuthor("author");
+        book2.setDescription("description");
         book2.setLink("link");
         book2.setCategory("category");
         book2.setYear("2009");
         book2.setIsAvailable(true);
         when(bookService.findBookById(2L)).thenReturn(Optional.of(book2));
 
-        assertThat(book2).extracting("id", "title", "author", "link", "category", "year", "isAvailable")
-                .containsExactly(2L, "title", "author", "link", "category", "2009", true);
+        assertThat(book2).extracting("id", "title", "author", "description", "link", "category", "year", "isAvailable")
+                .containsExactly(2L, "title", "author", "description", "link", "category", "2009", true);
         mockMvc.perform(get("/add-book/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("add-book"))
@@ -162,7 +163,7 @@ class LibraryControllerTest {
 
     @Test
     void testSaveBook() throws Exception {
-        Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "link",
+        Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "description", "link",
                 "java", "2005", true);
         when(bookService.save(book2)).thenReturn(book2);
 
