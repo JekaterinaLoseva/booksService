@@ -18,7 +18,7 @@
                 <th>Title</th>
                 <th>Author</th>
                 <th>Category</th>
-                <th>Link</th>
+                <th>Description</th>
                 <th>Year</th>
                 <th>Is available</th>
                 <th>Action</th>
@@ -30,7 +30,8 @@
                     <td>[[${book.title}]]</td>
                     <td>[[${book.author}]]</td>
                     <td>[[${book.category}]]</td>
-                    <td><a th:href="${book.link}" th:text="${book.link}">[[${book.link}]]</a></td>
+                    <td>
+                        <p>[[${book.description}]]<a th:href="${book.link}"> read more...</a></p></td>
                     <td>[[${book.year}]]</td>
                     <td>[[${book.isAvailable}]]</td>
                     <td>

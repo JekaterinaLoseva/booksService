@@ -13,30 +13,39 @@ import java.util.Objects;
 @Table(name = "books")
 public class Book {
 
+    private static final int LENGTH1 = 35;
+    private static final int LENGTH2 = 500;
+    private static final int LENGTH3 = 150;
+    private static final int LENGTH4 = 4;
+    private static final int LENGTH5 = 12;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq")
     private Long id;
-    @Column(name = "title", nullable = false, length = 35)
+    @Column(name = "title", nullable = false, length = LENGTH1)
     private String title;
-    @Column(name = "author", nullable = false, length = 35)
+    @Column(name = "author", nullable = false, length = LENGTH1)
     private String author;
-    @Column(name = "link", nullable = false, length = 150)
+    @Column(name = "description", nullable = false, length = LENGTH2)
+    private String description;
+    @Column(name = "link", nullable = false, length = LENGTH3)
     private String link;
-    @Column(name = "category", nullable = false, length = 35)
+    @Column(name = "category", nullable = false, length = LENGTH1)
     private String category;
-    @Column(name = "year", nullable = false, length = 4)
+    @Column(name = "year", nullable = false, length = LENGTH4)
     private String year;
-    @Column(name = "available", nullable = false, length = 12)
+    @Column(name = "available", nullable = false, length = LENGTH5)
     private boolean isAvailable;
 
     public Book() {
     }
 
-    public Book(final Long pId, final String pTitle, final String pAuthor, final String pLink,
-                final String pCategory, final String pYear, final boolean pIsAvailable) {
+    public Book(final Long pId, final String pTitle, final String pAuthor, final String pDescription,
+                final String pLink, final String pCategory, final String pYear, final boolean pIsAvailable) {
         this.id = pId;
         this.title = pTitle;
         this.author = pAuthor;
+        this.description = pDescription;
         this.link = pLink;
         this.category = pCategory;
         this.year = pYear;
@@ -65,6 +74,14 @@ public class Book {
 
     public void setAuthor(final String pAuthor) {
         this.author = pAuthor;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String pDescription) {
+        this.description = pDescription;
     }
 
     public String getLink() {
@@ -105,6 +122,7 @@ public class Book {
                 + "id=" + id
                 + ", title='" + title + '\''
                 + ", author='" + author + '\''
+                + ", description='" + description + '\''
                 + ", link='" + link + '\''
                 + ", category='" + category + '\''
                 + ", year='" + year + '\''
@@ -125,6 +143,7 @@ public class Book {
                 && Objects.equals(id, book.id)
                 && Objects.equals(title, book.title)
                 && Objects.equals(author, book.author)
+                && Objects.equals(description, book.description)
                 && Objects.equals(link, book.link)
                 && Objects.equals(category, book.category)
                 && Objects.equals(year, book.year);
@@ -132,6 +151,6 @@ public class Book {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author, link, category, year, isAvailable);
+        return Objects.hash(id, title, author, description, link, category, year, isAvailable);
     }
 }
