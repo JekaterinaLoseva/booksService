@@ -20,11 +20,10 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
+// testing service layer of the application
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
 
@@ -41,9 +40,9 @@ class BookServiceTest {
     public void setUp() {
         book = new Book(1L, "Clean Code", "Robert C. Martin", "description", "link",
                 "java", "2002", true);
-
     }
 
+    // test that returned list of books is not null and the size of the list is equal to the expected size
     @Test
     void testShouldReturnAllBooks() {
         Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "description",
@@ -54,6 +53,7 @@ class BookServiceTest {
         assertThat(books.size()).isEqualTo(2);
     }
 
+    // method tests if there are no books in the repository
     @Test
     void testShouldReturnEmptyBooksList() {
         given(bookRepository.findAll()).willReturn(Collections.emptyList());
@@ -62,6 +62,7 @@ class BookServiceTest {
         assertThat(books.size()).isZero();
     }
 
+    // method verifies that the size of the returned list of books is equal to the expected size
     @Test
     void testShouldFindByWord() {
         when(bookRepository.search("java")).thenReturn(Collections.singletonList(book));
@@ -70,6 +71,7 @@ class BookServiceTest {
         assertThat(searchedBook.size()).isEqualTo(1);
     }
 
+    // test asserts that the updated book's year is equal to the expected year
     @Test
     void testShouldUpdateBook() {
         given(bookRepository.findById(1L)).willReturn(Optional.of(book));
@@ -78,6 +80,7 @@ class BookServiceTest {
         assertThat(updatedBook.get().getYear()).isEqualTo("2013");
     }
 
+    // test that book by id is found and it is not null
     @Test
     void testShouldFindBookById() {
         when(bookRepository.findById(anyLong())).thenReturn(Optional.of(book));
@@ -85,6 +88,7 @@ class BookServiceTest {
         assertThat(actualBook).isNotNull();
     }
 
+    // test asserts that the book is not null and it is saved
     @Test
     void testShouldSaveBook() {
         given(bookRepository.save(book)).willReturn(book);
@@ -94,11 +98,12 @@ class BookServiceTest {
         then(bookRepository).should().save(savedBook);
     }
 
+    // test verifies that the deleteById() method is called.
     @Test
     void testShouldDeleteBook() {
         willDoNothing().given(bookRepository).deleteById(ID);
         bookService.delete(ID);
 
-        verify(bookRepository, times(1)).deleteById(ID);
+        verify(bookRepository).deleteById(ID);
     }
 }

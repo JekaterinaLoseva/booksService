@@ -67,6 +67,7 @@ class LibraryControllerTest {
                 .andExpect(view().name("main"));
     }
 
+    // Test get all books using template books
     @Test
     void testListOfBooks() throws Exception {
         Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "description", "link",
@@ -84,6 +85,7 @@ class LibraryControllerTest {
         then(bookService).should().findAllBooks();
     }
 
+    // Test get all books using template userBooks
     @Test
     void testListOfUserBooks() throws Exception {
         Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "description", "link",
@@ -101,6 +103,7 @@ class LibraryControllerTest {
         then(bookService).should().findAllBooks();
     }
 
+    // Test get a book by id using template book
     @Test
     void testFindBookById() throws Exception {
         when(bookService.findBookById(ID)).thenReturn(Optional.of(book));
@@ -115,6 +118,7 @@ class LibraryControllerTest {
         then(bookService).should().findBookById(ID);
     }
 
+    // Test not find a book by id using template book
     @Test
     void testNotFindBookById() throws Exception {
         given(bookService.findBookById(ID)).willReturn(Optional.empty());
@@ -124,6 +128,7 @@ class LibraryControllerTest {
                 .andDo(print());
     }
 
+    // Test search a book by keyword using template searchBook
     @Test
     void testSearchByWord() throws Exception {
         final List<Book> allBooks = Collections.singletonList(book);
@@ -139,6 +144,7 @@ class LibraryControllerTest {
         then(bookService).should().searchBooks("java");
     }
 
+    // Test add a book using template add-book
     @Test
     void testAddBook() throws Exception {
         Book book2 = new Book();
@@ -161,6 +167,7 @@ class LibraryControllerTest {
                 .andDo(print());
     }
 
+    // Test save a book using template save
     @Test
     void testSaveBook() throws Exception {
         Book book2 = new Book(2L, "Code Complete", "Steve McConnell", "description", "link",
@@ -177,6 +184,7 @@ class LibraryControllerTest {
         then(bookService).should().save(book);
     }
 
+    // Test update a book using template edit
     @Test
     void testUpdateBook() throws Exception {
         when(bookService.editBook(ID)).thenReturn(Optional.of(book));
@@ -192,6 +200,7 @@ class LibraryControllerTest {
                 .andExpect(model().attribute("id", ID));
     }
 
+    // Test edit a book using template delete
     @Test
     void testEditBook() throws Exception {
         given(bookService.editBook(ID)).willReturn(Optional.of(book));
@@ -204,6 +213,7 @@ class LibraryControllerTest {
         then(bookService).should().editBook(ID);
     }
 
+    // Test delete a book using template delete
     @Test
     void testDeleteBook() throws Exception {
         willDoNothing().given(bookService).delete(ID);

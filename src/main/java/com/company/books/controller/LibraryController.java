@@ -32,6 +32,7 @@ public class LibraryController {
         return "main";
     }
 
+    // create a get mapping that extracts all books from the database
     @GetMapping("/books")
     public String findAllBooks(final ModelMap model) {
         final List<Book> books = bookService.findAllBooks();
@@ -40,6 +41,7 @@ public class LibraryController {
         return "books-list";
     }
 
+    // create a get mapping that extracts all books from the database for user
     @GetMapping("/userBooks")
     public String findAllUserBooks(final ModelMap model) {
         final List<Book> books = bookService.findAllBooks();
@@ -48,6 +50,7 @@ public class LibraryController {
         return "user-books";
     }
 
+    // create a get mapping that searches books with concrete options
     @GetMapping("/searchBook")
     public String searchBook(@Param("keyword") final String keyword, final ModelMap model) {
         final List<Book> books = bookService.searchBooks(keyword);
@@ -55,8 +58,9 @@ public class LibraryController {
         model.addAttribute("books", books);
         model.addAttribute("keyword", keyword);
         return "searched-books";
-}
+    }
 
+    // create a get mapping that retrieves details of a specific book
     @GetMapping("/book/{id}")
     public String findBookById(@PathVariable("id")final Long id, final ModelMap model) {
         final Optional<Book> book = bookService.findBookById(id);
@@ -65,6 +69,7 @@ public class LibraryController {
         return "list-book";
     }
 
+    // create a get mapping that add a book to the database
     @GetMapping("/add-book")
     public String add(final ModelMap model) {
 
@@ -72,6 +77,7 @@ public class LibraryController {
         return "add-book";
     }
 
+    // create a post mapping that save details into the database
     @PostMapping("/save")
     public String save(final ModelMap model, @ModelAttribute final Book book, final BindingResult errors) {
 
@@ -80,6 +86,7 @@ public class LibraryController {
         return "redirect:books";
     }
 
+    // create a get mapping that change a book details in the database
     @GetMapping("/edit")
     public String edit(final ModelMap model, @RequestParam final Long id) {
 
@@ -90,6 +97,7 @@ public class LibraryController {
         return "edit";
     }
 
+    // create a get mapping that deletes a specified book
     @GetMapping("/delete")
     public String delete(final ModelMap model, @RequestParam final Long id)  {
 
@@ -100,6 +108,7 @@ public class LibraryController {
         return "delete";
     }
 
+    // create a post mapping that deletes a specified book from database
     @PostMapping("/delete")
     public String save(final ModelMap model, @RequestParam final Long id) {
 

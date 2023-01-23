@@ -29,6 +29,7 @@ class LoginItTest {
     @Autowired
     private MockMvc mockMvc;
 
+    // Test when username is valid
     @Test
     void loginWithValidUser() throws Exception {
        FormLoginRequestBuilder login = formLogin()
@@ -39,6 +40,7 @@ class LoginItTest {
                 .andExpect(authenticated().withUsername("admin"));
     }
 
+    // Test when username is invalid
     @Test
     void loginWithInvalidUser() throws Exception {
         FormLoginRequestBuilder login = formLogin()
@@ -49,12 +51,14 @@ class LoginItTest {
                 .andExpect(unauthenticated());
     }
 
+    // Test when try to access unsecured resources
     @Test
     void accessUnsecuredResource() throws Exception {
         mockMvc.perform(get("/css/style.css"))
                 .andExpect(status().isOk());
     }
 
+    // Test when try to access not authenticated
     @Test
     void accessSecuredResourceUnauthenticated() throws Exception {
         mockMvc.perform(get("/mainPage"))
@@ -62,6 +66,7 @@ class LoginItTest {
                 .andExpect(redirectedUrlPattern("**/login"));
     }
 
+    // Test when try to access secured resources and authenticated
     @Test
     @WithMockUser
     void accessSecuredResourceAuthenticated() throws Exception {
@@ -69,6 +74,7 @@ class LoginItTest {
                 .andExpect(status().isOk());
     }
 
+    // Test when try to access with login admin
     @Test
     @WithMockUser(roles = "ADMIN")
     void loginWithRoleAdmin() throws Exception {
