@@ -32,6 +32,7 @@ class BookRepositoryItTest {
     @Autowired
     private BookRepository bookRepository;
 
+    // test checks the size of the returned book list
     @Test
     void testFindAllBooks() {
         List<Book> actual = bookRepository.findAll();
@@ -40,6 +41,7 @@ class BookRepositoryItTest {
         assertEquals(SIZE, actual.size());
     }
 
+    // test is checking if the method returns the expected book by id
     @Test
     void testFindBookById() {
         Optional<Book> actual = bookRepository.findById(ID);
@@ -52,6 +54,7 @@ class BookRepositoryItTest {
         assertThat(expected).isEqualTo(actual);
     }
 
+    // test is checking if the method returns not the expected book by id
     @Test
     void testFindBookByIdInvalid() {
         final Optional<Book> actual = bookRepository.findById(ID2);
@@ -62,6 +65,7 @@ class BookRepositoryItTest {
         assertThat(expected).isNotEqualTo(actual);
     }
 
+    // test is checking if the method returns a list of books with the keyword
     @Test
     void testFindBookByWord() {
         String keyword = "Code";
@@ -69,6 +73,7 @@ class BookRepositoryItTest {
         assertEquals(2, actual.size());
     }
 
+    // test is checking if the method updates a book correctly
     @Test
     void testUpdateBook() {
         Optional<Book> actual = bookRepository.findById(ID3);
@@ -81,6 +86,7 @@ class BookRepositoryItTest {
         assertThat(expected).isEqualTo(actual);
     }
 
+    // test is checking if the method correctly adds a book to the repository
     @Test
     void testAddBook() {
         Book book = new Book();
@@ -98,6 +104,7 @@ class BookRepositoryItTest {
         assertThat(expected).isEqualTo(actual);
     }
 
+    // test is checking if the method correctly deletes a book from the repository
     @Test
     void testDeleteBook() {
         Optional<Book> actual = bookRepository.findById(ID2);
@@ -109,6 +116,7 @@ class BookRepositoryItTest {
         assertThat(expected).isEqualTo(actual);
     }
 
+    // helper method to generate a list of valid books
     private List<Book> generateValidBooks() {
         List<Book> books = new ArrayList<>();
         books.add(new Book(ID, "Clean Code", "Robert C. Martin",

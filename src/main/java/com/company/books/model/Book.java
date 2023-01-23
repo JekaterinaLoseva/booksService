@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
 
+// define class as an Entity
 @Entity
 @Table(name = "books")
 public class Book {
